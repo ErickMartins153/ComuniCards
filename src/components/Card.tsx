@@ -1,21 +1,27 @@
-import perfilIcon from '../assets/perfilIcon.svg';
-import favoriteIcon from '../assets/favoriteIcon.svg';
+import perfilIcon from "../assets/perfilIcon.svg";
+import favoriteIcon from "../assets/favoriteIcon.svg";
+import { type Cartao } from "../util/cartoes";
+import { useAudio } from "../hooks/useAudio";
 
-interface CardProps {
-    titulo: string;
-    urlAudio: string;
-    urlImagem: string;
-}
+export function Card({ titulo, frase, urlImagem: imagemURL }: Cartao) {
+  const { playAudio } = useAudio();
 
-export function Card() {
-    return (
-        <div className="rounded-md w-[200px] border-2 border-black text-center bg-slate-600 space-y-3 ">
-            <img src={favoriteIcon}/>
-            <div className='flex flex-col items-center border-b-2 border-black'>
-            <img src={perfilIcon} className='size-36'/>
-            <p>Nome do card</p>
-            </div>
-            <button className="btn btn-primary w-16 border border-black rounded-md bg-[#EEF8FF] size-10" type="button">Ouvir</button>
-        </div>  
-    );
+  return (
+    <div className="w-[200px] rounded-md border-2 border-black bg-slate-600 text-center">
+      <button className="m-2 flex">
+        <img src={favoriteIcon} />
+      </button>
+      <div className="flex flex-col items-center border-b-2 border-black">
+        <img src={imagemURL ?? perfilIcon} className="size-36" />
+        <h2 className="text-2xl font-bold">{titulo}</h2>
+      </div>
+      <button
+        className="btn btn-primary my-3 size-10 w-16 rounded-md border border-black bg-[#EEF8FF]"
+        type="button"
+        onClick={playAudio.bind(null, frase)}
+      >
+        Ouvir
+      </button>
+    </div>
+  );
 }
