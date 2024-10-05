@@ -14,12 +14,12 @@ export const AudioContext = createContext<AudioContextType>(defaultValue);
 export function AudioContextProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement>(new Audio());
 
-  async function playAudio(texto: string) {
+  async function playAudio(audioId: string) {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
 
     try {
-      const url = await getAudio(texto);
+      const url = await getAudio(audioId);
       audioRef.current.src = url;
       audioRef.current.play();
     } catch (error) {
