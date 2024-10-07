@@ -1,8 +1,11 @@
+import { useState } from "react";
 import CardList from "../components/card/CardList";
 import { NavBar } from "../components/NavBar";
 import { SearchBar } from "../components/SearchBar";
 
 export default function Home() {
+  const [search, setSearch] = useState('');
+
   return (
     <div className="flex flex-col gap-5 bg-[#EEF8FF]">
       <NavBar />
@@ -11,9 +14,9 @@ export default function Home() {
       </div>
       <div className="mx-20 flex max-w-full flex-col gap-5 rounded bg-[#B1D8FF] p-12">
         <div>
-          <SearchBar />
+          <SearchBar onSearch={setSearch} />
         </div>
-        <CardList />
+        <CardList search={search} />
       </div>
     </div>
   );
