@@ -10,16 +10,23 @@ export function CardItem({ titulo, urlImagem: imagemURL, id }: Cartao) {
 
   const [isFavorited, setIsFavorited] = useState(false);
   const favorite = () => {
-    setIsFavorited((prev) => !prev);
+    setIsFavorited(!isFavorited);
   };
 
   return (
     <div className="w-[200px] rounded-md border-2 border-black bg-[#EEF8FF] text-center">
       <button className="flex m-2" onClick={favorite}>
-        <img src={isFavorited ? favoriteIconYellow : favoriteIcon} alt="Favoritar" />
+        <img
+          src={isFavorited ? favoriteIconYellow : favoriteIcon}
+          alt="Favoritar"
+        />
       </button>
       <div className="flex flex-col items-center border-b-2 border-black">
-        <img src={imagemURL ?? perfilIcon} className="size-36" alt="Imagem do cartão" />
+        <img
+          src={imagemURL !== "placeholder" ? imagemURL : perfilIcon}
+          className="size-36"
+          alt="Imagem do cartão"
+        />
         <h2 className="text-2xl font-bold">{titulo}</h2>
       </div>
       <button

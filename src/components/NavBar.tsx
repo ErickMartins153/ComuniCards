@@ -8,7 +8,7 @@ export function NavBar() {
         <button>
           <img src={barraIcon} alt="Menu" className="size-16" />
         </button>
-        <h1 className="text-4xl">CC</h1>
+        <h1 className="text-4xl">ComuniCards</h1>
       </div>
       <div>
         <img src={perfilIcon} alt="Perfil" className="size-16" />
