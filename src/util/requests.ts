@@ -11,8 +11,24 @@ export async function getAudio(audioId: string) {
 }
 
 export async function getCartoes() {
-  const url = `${BASE_URL}/cartoes/all`;
+  const url = `${BASE_URL}/cartoes`;
   const response = await fetch(url);
   const data = (await response.json()) as Cartao[];
   return data || [];
+}
+
+export async function createCartao(cartao: Cartao) {
+  const url = `${BASE_URL}/cartoes`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cartao),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Erro ao criar cartão: ${response.statusText}`);
+  }
 }

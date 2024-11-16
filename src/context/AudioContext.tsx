@@ -2,7 +2,7 @@ import { createContext, ReactNode, useRef } from "react";
 import { getAudio } from "../util/requests";
 
 interface AudioContextType {
-  playAudio: (frase: string) => void;
+  playAudio: (cardId: string) => void;
 }
 
 const defaultValue: AudioContextType = {
