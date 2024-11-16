@@ -9,7 +9,11 @@ interface CardListProps {
 }
 
 export default function CardList({ search, filtros }: CardListProps) {
-  const { cartoes, isLoading } = useCartoes();
+  const { cartoes, isLoading, deleteCartao } = useCartoes();
+
+  function handleDelete(id: string) {
+    deleteCartao(id, "c67ead7e-6c90-4ffb-b8f4-08a5a3fc024c");
+  }
 
   const cartoesFiltrados =
     search.trim() === ""
@@ -48,7 +52,11 @@ export default function CardList({ search, filtros }: CardListProps) {
               </h2>
               <div className="grid auto-rows-[280px] grid-cols-5 gap-16">
                 {cartoes.map((cartao) => (
-                  <CardItem {...cartao} key={cartao.id} />
+                  <CardItem
+                    {...cartao}
+                    key={cartao.id}
+                    onDelete={handleDelete}
+                  />
                 ))}
               </div>
             </div>

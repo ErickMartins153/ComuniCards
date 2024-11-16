@@ -1,21 +1,37 @@
 import { useEffect, useState } from "react";
-import { Cartao } from "../util/cartoes";
-import { getCartoes } from "../util/requests";
+import { Cartao } from "../util/Cartao";
+import { getCartoes, deleteCartaoById } from "../util/requests";
 
 export default function useCartoes() {
   const [cartoes, setCartoes] = useState<Cartao[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    try {
-      setIsLoading(true);
-      getCartoes().then((fetchedCartoes) => setCartoes(fetchedCartoes));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+    async function fetchCartoes() {
+      try {
+        setIsLoading(true);
+        const fetchedCartoes = await getCartoes();
+        setCartoes(fetchedCartoes);
+      } catch (error) {
+        console.error("Erro ao buscar cartões:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
+
+    fetchCartoes();
   }, []);
 
-  return { cartoes, isLoading };
+  async function deleteCartao(cartaoId: string, usuarioId: string) {
+    try {
+      await deleteCartaoById(cartaoId, usuarioId);
+      setCartoes((prevCartoes) =>
+        prevCartoes.filter((cartao) => cartao.id !== cartaoId),
+      );
+    } catch (error) {
+      console.error("Erro ao deletar cartão:", error);
+    }
+  }
+
+  return { cartoes, isLoading, deleteCartao };
 }

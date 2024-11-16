@@ -1,4 +1,4 @@
-import { Cartao } from "./cartoes";
+import { Cartao } from "./Cartao";
 
 const BASE_URL = "http://localhost:8081/api";
 
@@ -30,5 +30,22 @@ export async function createCartao(cartao: Cartao) {
 
   if (!response.ok) {
     throw new Error(`Erro ao criar cartão: ${response.statusText}`);
+  }
+}
+
+export async function deleteCartaoById(id: string, usuarioId: string) {
+  const url = `${BASE_URL}/cartoes/${id}`;
+
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Usuario-Id": usuarioId,
+    },
+  });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(`Erro ao deletar cartão: ${errorMessage}`);
   }
 }
