@@ -4,5 +4,16 @@ export default {
   theme: {
     extend: {},
   },
+  theme: {
+    extend: {
+      fontFamily: {
+        'sour-gummy': ['"Sour Gummy"', 'cursive'],
+      },
+    }
+  },
   plugins: [],
 };
+
+
+
+
