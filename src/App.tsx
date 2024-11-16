@@ -1,13 +1,11 @@
 import "./App.css";
 
-import { AudioContextProvider } from "./context/AudioContext";
-import Home from "./pages/Home";
+import Register from "./pages/Register";
+
 
 function App() {
   return (
-    <AudioContextProvider>
-      <Home />
-    </AudioContextProvider>
+    <Register />
   );
 }
 
