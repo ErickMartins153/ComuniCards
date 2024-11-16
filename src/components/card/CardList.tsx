@@ -3,7 +3,12 @@ import { CardItem } from "./CardItem";
 import Loading from "../Loading";
 import { Categoria, CategoriaLabel } from "../../util/categorias";
 
-export default function CardList({ search }: { search: string }) {
+interface CardListProps {
+  search: string;
+  filtros: string[];
+}
+
+export default function CardList({ search, filtros }: CardListProps) {
   const { cartoes, isLoading } = useCartoes();
 
   const cartoesFiltrados =
@@ -15,7 +20,12 @@ export default function CardList({ search }: { search: string }) {
             .includes(search.toLocaleLowerCase()),
         );
 
-  const cartoesPorCategoria = cartoesFiltrados.reduce(
+  const cartoesComFiltro =
+    filtros.length > 0
+      ? cartoesFiltrados.filter((cartao) => filtros.includes(cartao.categoria!))
+      : cartoesFiltrados;
+
+  const cartoesPorCategoria = cartoesComFiltro.reduce(
     (acc, cartao) => {
       const categoria = cartao.categoria!;
       if (!acc[categoria]) {

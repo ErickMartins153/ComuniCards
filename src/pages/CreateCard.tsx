@@ -90,6 +90,7 @@ export default function CreateCartao() {
             value={cartao.urlImagem}
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
+            required
           />
         </label>
 
