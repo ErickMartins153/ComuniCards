@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Profile from "../pages/Profile";
 
 export function AppRoutes() {
   const { usuario } = useContext(AuthContext);
@@ -22,6 +23,7 @@ export function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateCartao />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/profile" element={<Profile />} />
         </>
       )}
     </Routes>
