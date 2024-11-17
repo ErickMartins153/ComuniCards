@@ -42,8 +42,8 @@ export default function RegisterBox() {
   };
 
   return (
-    <div className="flex h-[60%] w-[26%] flex-col items-center justify-between rounded-l-xl border-r-2 bg-[#B1D8FF] py-8">
-      <label className="text-center font-sour-gummy text-2xl font-normal uppercase leading-normal text-[#171717]">
+    <div className="bg-white flex flex-col py-8 items-center justify-between rounded-l-xl w-[60%] h-[400px] border-r-2">
+        <label className="text-[#29C5FD] text-center text-2xl font-bold leading-normal font-roboto">
         Criar uma conta
       </label>
       <div className="my-12 flex h-[50%] w-full flex-col items-center justify-between">

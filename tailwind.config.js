@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sour-gummy': ['"Sour Gummy"', 'cursive'],
+        'roboto': ['"Roboto"', 'sans-serif'],
       },
     }
   },
