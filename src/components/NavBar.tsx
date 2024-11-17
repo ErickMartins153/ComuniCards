@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import barraIcon from "../assets/options.svg";
 import perfilIcon from "../assets/perfilIcon.svg";
 import { useAuth } from "../hooks/useAuth";
@@ -26,7 +26,9 @@ export function NavBar() {
           <h1 className="text-4xl">ComuniCards</h1>
         </div>
         <div>
-          <img src={perfilIcon} alt="Perfil" className="w-8 h-8" />
+          <Link to={"/profile"}>
+           <img src={perfilIcon} alt="Perfil" className="w-8 h-8" />
+          </Link>
         </div>
       </nav>
 
