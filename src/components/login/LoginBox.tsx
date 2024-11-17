@@ -12,8 +12,6 @@ export default function LoginBox() {
   const [message, setMessage] = useState("");
 
   const handleLogin = async () => {
-    console.log(email, senha);
-
     if (!email || !senha) return;
 
     const result = logar({ email, senha });
@@ -23,8 +21,8 @@ export default function LoginBox() {
   };
 
   return (
-    <div className="bg-white flex flex-col items-center justify-center rounded-xl w-[26%] h-[60%] shadow-[0_10px_50px_rgba(0,0,0,0.25)]">
-            <label className='text-[#29C5FD] text-center text-2xl font-bold leading-normal uppercase font-roboto'>
+    <div className="flex h-[60%] w-[26%] flex-col items-center justify-center rounded-xl bg-white shadow-[0_10px_50px_rgba(0,0,0,0.25)]">
+      <label className="text-center font-roboto text-2xl font-bold uppercase leading-normal text-[#29C5FD]">
         <div>BEM VINDO DE</div>
         <div> VOLTA!</div>
       </label>
@@ -47,7 +45,7 @@ export default function LoginBox() {
         value={senha}
         onChange={(e) => setSenha(e.target.value)}
       />
-      <div className='mt-2 mb-7 w-full pl-10 text-[#8d8e8e]'>
+      <div className="mb-7 mt-2 w-full pl-10 text-[#8d8e8e]">
         <label>Não tem uma conta ? </label>
         <Link to={"/register"}>
           <a className="underline">Cadastre-se</a>

@@ -4,8 +4,8 @@ import favoriteIconYellow from "../../assets/favoriteIconYellow.svg";
 import { type Cartao } from "../../model/Cartao";
 
 import { useAuth } from "../../hooks/useAuth";
-import useFavorito from "../../hooks/useFavorito";
 import { useAudio } from "../../hooks/useAudio";
+import useCartoes from "../../hooks/useCartoes";
 
 interface CardItemProps extends Cartao {
   onDelete: (id: string) => void;
@@ -15,16 +15,14 @@ export function CardItem({
   titulo,
   urlImagem: imagemURL,
   id,
-  base,
+  isBase: base,
   onDelete,
-  favorito,
+  isFavorito: favorito,
+  criadorId,
 }: CardItemProps) {
   const { usuario } = useAuth();
-  const { isFavorited, toggleFavorito } = useFavorito(
-    id,
-    usuario!.id,
-    favorito,
-  );
+
+  const { toggleFavorito, isFavorito } = useCartoes("favoritos", favorito);
 
   const { playAudio } = useAudio();
 
@@ -32,7 +30,7 @@ export function CardItem({
     <div className="relative w-[200px] rounded-md border-2 border-black bg-[#EEF8FF] text-center">
       {!base && (
         <button
-          className="absolute text-red-500 right-2 top-2"
+          className="absolute right-2 top-2 text-red-500"
           onClick={() => onDelete(id)}
         >
           <svg
@@ -41,7 +39,7 @@ export function CardItem({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -51,9 +49,16 @@ export function CardItem({
           </svg>
         </button>
       )}
-      <button className="flex m-2" onClick={toggleFavorito}>
+      <button
+        className="m-2 flex"
+        onClick={() => toggleFavorito(id, usuario!.id)}
+      >
         <img
-          src={isFavorited ? favoriteIconYellow : favoriteIcon}
+          src={
+            isFavorito || criadorId === usuario!.id
+              ? favoriteIconYellow
+              : favoriteIcon
+          }
           alt="Favoritar"
         />
       </button>

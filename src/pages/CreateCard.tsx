@@ -16,9 +16,9 @@ export default function CreateCartao() {
     titulo: "",
     categoria: "",
     urlImagem: "",
-    base: false,
+    isBase: false,
     criadorId: usuario!.id,
-    favorito: true,
+    isFavorito: true,
   });
 
   const handleInputChange = (

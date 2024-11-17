@@ -4,7 +4,7 @@ export interface Cartao {
   categoria?: string;
   frase: string;
   urlImagem?: string;
-  base: boolean;
+  isBase: boolean;
   criadorId: string;
-  favorito: boolean;
+  isFavorito: boolean;
 }

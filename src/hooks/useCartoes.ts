@@ -8,9 +8,13 @@ import {
 } from "../util/requests";
 import { useAuth } from "./useAuth";
 
-export default function useCartoes(tipo: "todos" | "favoritos") {
+export default function useCartoes(
+  tipo: "todos" | "favoritos",
+  favorito?: boolean,
+) {
   const { usuario } = useAuth();
   const [cartoes, setCartoes] = useState<Cartao[]>([]);
+  const [isFavorito, setIsFavorito] = useState(favorito || false);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchCartoes = useCallback(async () => {
@@ -36,27 +40,40 @@ export default function useCartoes(tipo: "todos" | "favoritos") {
 
   async function deleteCartao(cartaoId: string, usuarioId: string) {
     try {
+      setIsLoading(true);
       await deleteCartaoById(cartaoId, usuarioId);
       setCartoes((prevCartoes) =>
         prevCartoes.filter((cartao) => cartao.id !== cartaoId),
       );
     } catch (error) {
       console.error("Erro ao deletar cartão:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function toggleFavorito(cartaoId: string, usuarioId: string) {
     try {
+      setIsLoading(true);
       await favoritarCartao(cartaoId, usuarioId);
       setCartoes((prevCartoes) =>
         prevCartoes.filter((cartao) => cartao.id !== cartaoId),
       );
-      await fetchCartoes();
+      setIsFavorito((prev) => !prev);
     } catch (error) {
       console.error("Erro ao favoritar cartão:", error);
       alert("Não foi possível favoritar o cartão.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  return { cartoes, isLoading, deleteCartao, toggleFavorito, fetchCartoes };
+  return {
+    cartoes,
+    isLoading,
+    deleteCartao,
+    toggleFavorito,
+    fetchCartoes,
+    isFavorito,
+  };
 }
