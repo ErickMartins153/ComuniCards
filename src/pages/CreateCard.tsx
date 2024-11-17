@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Categoria, CategoriaLabel } from "../model/categorias";
 import { Cartao } from "../model/Cartao";
 import { NavBar } from "../components/NavBar";
+import { useAuth } from "../hooks/useAuth";
 
 export default function CreateCartao() {
+  const { usuario } = useAuth();
   const navigate = useNavigate();
 
   const [cartao, setCartao] = useState<Cartao>({
@@ -15,6 +17,7 @@ export default function CreateCartao() {
     categoria: "",
     urlImagem: "",
     base: false,
+    criadorId: usuario!.id,
   });
 
   const handleInputChange = (
@@ -39,7 +42,7 @@ export default function CreateCartao() {
       <NavBar />
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 rounded bg-white p-4 shadow-lg"
+        className="flex flex-col gap-4 p-4 bg-white rounded shadow-lg"
       >
         <label>
           Título:
@@ -48,7 +51,7 @@ export default function CreateCartao() {
             name="titulo"
             value={cartao.titulo}
             onChange={handleInputChange}
-            className="w-full rounded border p-2"
+            className="w-full p-2 border rounded"
             required
           />
         </label>
@@ -59,7 +62,7 @@ export default function CreateCartao() {
             name="categoria"
             value={cartao.categoria}
             onChange={handleInputChange}
-            className="w-full rounded border p-2"
+            className="w-full p-2 border rounded"
             required
           >
             <option value="">Selecione uma categoria</option>
@@ -78,7 +81,7 @@ export default function CreateCartao() {
             name="frase"
             value={cartao.frase}
             onChange={handleInputChange}
-            className="w-full rounded border p-2"
+            className="w-full p-2 border rounded"
             required
           />
         </label>
@@ -90,12 +93,12 @@ export default function CreateCartao() {
             name="urlImagem"
             value={cartao.urlImagem}
             onChange={handleInputChange}
-            className="w-full rounded border p-2"
+            className="w-full p-2 border rounded"
             required
           />
         </label>
 
-        <button type="submit" className="rounded bg-blue-500 p-2 text-white">
+        <button type="submit" className="p-2 text-white bg-blue-500 rounded">
           Criar Cartão
         </button>
       </form>

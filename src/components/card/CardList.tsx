@@ -2,6 +2,7 @@ import useCartoes from "../../hooks/useCartoes";
 import { CardItem } from "./CardItem";
 import Loading from "../Loading";
 import { Categoria, CategoriaLabel } from "../../model/categorias";
+import { useAuth } from "../../hooks/useAuth";
 
 interface CardListProps {
   search: string;
@@ -9,10 +10,11 @@ interface CardListProps {
 }
 
 export default function CardList({ search, filtros }: CardListProps) {
+  const { usuario } = useAuth();
   const { cartoes, isLoading, deleteCartao } = useCartoes();
 
   function handleDelete(id: string) {
-    deleteCartao(id, "c67ead7e-6c90-4ffb-b8f4-08a5a3fc024c");
+    deleteCartao(id, usuario!.id);
   }
 
   const cartoesFiltrados =

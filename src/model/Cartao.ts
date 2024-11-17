@@ -5,4 +5,5 @@ export interface Cartao {
   frase: string;
   urlImagem?: string;
   base: boolean;
+  criadorId: string;
 }

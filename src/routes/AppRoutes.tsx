@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import CreateCartao from "../pages/CreateCard";
 import Login from "../pages/Login";
@@ -15,11 +15,13 @@ export function AppRoutes() {
         <>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </>
       ) : (
         <>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateCartao />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </>
       )}
     </Routes>
