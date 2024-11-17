@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
-import LoginInput from '../Input';
 import Button from '../Button';
+import Input from '../Input';
 
 export default function LoginBox() {
     const [email, setEmail] = useState('');
@@ -20,33 +20,33 @@ export default function LoginBox() {
             }),
         });
 
-        const data = await response.text();
-
         if (response.ok) {
             setMessage('Login realizado com sucesso!');
+            window.location.href = "/home";
         } else {
+            const data = await response.text();
             setMessage(data);
         }
     };
 
     return (
-        <div className="bg-[#B1D8FF] flex flex-col items-center justify-center rounded-xl w-[26%] h-[60%] shadow-[0_10px_50px_rgba(0,0,0,0.25)]">
-            <label className='text-white text-center text-2xl font-normal leading-normal uppercase font-sour-gummy'>
+        <div className="bg-white flex flex-col items-center justify-center rounded-xl w-[26%] h-[60%] shadow-[0_10px_50px_rgba(0,0,0,0.25)]">
+            <label className='text-[#29C5FD] text-center text-2xl font-bold leading-normal uppercase font-roboto'>
                 <div>BEM VINDO DE</div>
                 <div> VOLTA!</div>
             </label>
             <br />
             <br />
-            <LoginInput
+            <Input
                 icon={FaEnvelope}
                 placeholder="Email"
-                type='email'
                 style={{ color: '#8B96C2' }}
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
             <br />
-            <LoginInput
+            <Input
                 icon={FaLock}
                 placeholder="Senha"
                 style={{ color: '#8B96C2' }}
@@ -54,7 +54,7 @@ export default function LoginBox() {
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
             />
-            <div className='mt-2 mb-7 w-full pl-10 text-white'>
+            <div className='mt-2 mb-7 w-full pl-10 text-[#8d8e8e]'>
                 <label>Não tem uma conta ? </label>
                 <a href='#' className='underline'>Cadastre-se</a>
             </div>

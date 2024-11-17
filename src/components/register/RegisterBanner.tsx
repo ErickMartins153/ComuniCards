@@ -1,9 +1,15 @@
+import banner from '../../assets/autismo.png';
 
 export default function RegisterBanner() {
     return (
-        <div className="bg-[#B1D8FF] flex flex-col items-center justify-between py-8 px-2 rounded-r-xl w-[26%] h-[60%] bg-cover bg-center text-white font-sour-gummy">
-            <label className="text-white text-center text-2xl font-normal leading-normal uppercase">Seja bem vindo ao Comunicards</label>
-            <label className="text-white text-center text-2xl font-normal leading-normal uppercase">Facilitando a Comunicação: Uma Plataforma Criada para Ajudar Pessoas Autistas a Se Expressarem com Facilidade e Confiança.</label>
+        <div className="bg-white flex flex-col items-center justify-between rounded-r-xl py-8 px-4 w-[60%] h-[400px] bg-cover bg-center text-white font-sour-gummy">
+            <label className="text-[#29C5FD] text-center text-2xl font-bold font-roboto leading-normal ">Seja bem vindo ao Comunicards</label>
+            <div>
+            <img src={banner} width={"250px"} />
+            
+            </div>
+            
+            <label className="text-[#29C5FD] text-center text-2xl font-bold font-roboto leading-normal ">Facilitando a Comunicação Para Quem Precisa...</label>
         </div>
     );
 }
