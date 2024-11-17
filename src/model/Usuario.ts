@@ -3,6 +3,7 @@ export default interface Usuario {
   nome: string;
   email: string;
   senha: string;
+  foto: string;
 }
 
 export interface Credentials {

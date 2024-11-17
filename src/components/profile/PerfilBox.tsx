@@ -16,6 +16,7 @@ export default function PerfilBox() {
     }
 
     try {
+      console.log("usuario?.id", usuario?.id);
       const response = await fetch(`https://localhost:8081/api/usuarios/${usuario?.id}`, {
         method: "PUT",
         headers: {
@@ -39,8 +40,7 @@ export default function PerfilBox() {
     <div className="relative flex flex-col items-center">
     <Link to="/home">
       <button
-        className="absolute top-4 left-4 bg-[#29C5FD] text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        onClick={() => alert("Função de retornar ainda não implementada!")}>
+        className="absolute top-4 left-4 bg-[#29C5FD] text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
         <FaArrowLeft className="w-4 h-4" />
       </button>
     </Link>
