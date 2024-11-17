@@ -17,7 +17,7 @@ export default function Loading({ texto }: { texto: string }) {
           cy="12"
           r="10"
           stroke="currentColor"
-          stroke-width="4"
+          stroke-widt="4"
         ></circle>
         <path
           className="opacity-75"

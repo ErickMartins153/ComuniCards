@@ -10,9 +10,13 @@ export async function getAudio(audioId: string) {
   return URL.createObjectURL(audioBlob);
 }
 
-export async function getCartoes() {
+export async function getCartoes(usuarioId: string) {
   const url = `${BASE_URL}/cartoes`;
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    headers: {
+      "Usuario-Id": usuarioId,
+    },
+  });
   const data = (await response.json()) as Cartao[];
   return data || [];
 }
@@ -48,4 +52,40 @@ export async function deleteCartaoById(id: string, usuarioId: string) {
     const errorMessage = await response.text();
     throw new Error(`Erro ao deletar cartão: ${errorMessage}`);
   }
+}
+
+export async function favoritarCartao(cartaoId: string, usuarioId: string) {
+  const url = `${BASE_URL}/cartoes/${cartaoId}/favoritar`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Usuario-Id": usuarioId,
+    },
+  });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(`Erro ao favoritar cartão: ${errorMessage}`);
+  }
+}
+
+export async function getFavoritos(usuarioId: string) {
+  const url = `${BASE_URL}/usuarios/${usuarioId}/favoritos`;
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const errorMessage = await response.text();
+    throw new Error(`Erro ao obter cartões favoritos: ${errorMessage}`);
+  }
+
+  const data = (await response.json()) as Cartao[];
+  return data || [];
 }

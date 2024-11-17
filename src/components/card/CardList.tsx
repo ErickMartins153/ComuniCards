@@ -1,22 +1,24 @@
-import useCartoes from "../../hooks/useCartoes";
-import { CardItem } from "./CardItem";
-import Loading from "../Loading";
-import { Categoria, CategoriaLabel } from "../../model/categorias";
 import { useAuth } from "../../hooks/useAuth";
+import useCartoes from "../../hooks/useCartoes";
+import { Cartao } from "../../model/Cartao";
+import { Categoria, CategoriaLabel } from "../../model/categorias";
+import { CardItem } from "./CardItem";
 
 interface CardListProps {
+  cartoes: Cartao[];
   search: string;
   filtros: string[];
+  tipo: "todos" | "favoritos";
 }
 
-export default function CardList({ search, filtros }: CardListProps) {
+export default function CardList({
+  cartoes,
+  search,
+  filtros,
+  tipo,
+}: CardListProps) {
   const { usuario } = useAuth();
-  const { cartoes, isLoading, deleteCartao } = useCartoes();
-
-  function handleDelete(id: string) {
-    deleteCartao(id, usuario!.id);
-  }
-
+  const { deleteCartao } = useCartoes(tipo);
   const cartoesFiltrados =
     search.trim() === ""
       ? cartoes
@@ -45,29 +47,25 @@ export default function CardList({ search, filtros }: CardListProps) {
 
   return (
     <div className="mt-5 space-y-8">
-      {!isLoading ? (
-        Object.keys(cartoesPorCategoria).length > 0 ? (
-          Object.entries(cartoesPorCategoria).map(([categoria, cartoes]) => (
-            <div key={categoria}>
-              <h2 className="mb-4 text-xl font-bold">
-                {CategoriaLabel[categoria as Categoria]}
-              </h2>
-              <div className="grid auto-rows-[280px] grid-cols-5 gap-16">
-                {cartoes.map((cartao) => (
-                  <CardItem
-                    {...cartao}
-                    key={cartao.id}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </div>
+      {Object.keys(cartoesPorCategoria).length > 0 ? (
+        Object.entries(cartoesPorCategoria).map(([categoria, cartoes]) => (
+          <div key={categoria}>
+            <h2 className="mb-4 text-xl font-bold">
+              {CategoriaLabel[categoria as Categoria]}
+            </h2>
+            <div className="grid auto-rows-[280px] grid-cols-5 gap-16">
+              {cartoes.map((cartao) => (
+                <CardItem
+                  {...cartao}
+                  key={cartao.id}
+                  onDelete={() => deleteCartao(cartao.id, usuario!.id)}
+                />
+              ))}
             </div>
-          ))
-        ) : (
-          <p>Nenhum cartão foi encontrado</p>
-        )
+          </div>
+        ))
       ) : (
-        <Loading texto="Carregando" />
+        <p>Nenhum cartão encontrado</p>
       )}
     </div>
   );
