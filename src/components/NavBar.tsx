@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import barraIcon from "../assets/options.svg";
 import perfilIcon from "../assets/perfilIcon.svg";
+import { useAuth } from "../hooks/useAuth";
 
 export function NavBar() {
+  const { deslogar } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -59,7 +61,7 @@ export function NavBar() {
               </button>
             </li>
             <li>
-              <button onClick={toggleSidebar} className="text-lg text-red-500">
+              <button onClick={deslogar} className="text-lg text-red-500">
                 Deslogar
               </button>
             </li>

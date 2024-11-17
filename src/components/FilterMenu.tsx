@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { CategoriaLabel } from "../util/categorias";
+import { CategoriaLabel } from "../model/categorias";
 
 interface FilterMenuProps {
   filtros: string[];
@@ -44,12 +44,12 @@ export default function FilterMenu({ filtros, setFiltros }: FilterMenuProps) {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
       >
         Filtrar
       </button>
       {isOpen && (
-        <div className="absolute right-0 z-10 w-48 p-4 bg-white border rounded shadow">
+        <div className="absolute right-0 z-10 w-48 rounded border bg-white p-4 shadow">
           {Object.entries(CategoriaLabel).map(([key, label]) => (
             <div key={key} className="flex items-center gap-2">
               <input
@@ -63,7 +63,7 @@ export default function FilterMenu({ filtros, setFiltros }: FilterMenuProps) {
           ))}
           <button
             onClick={removerFiltros}
-            className="w-full px-4 py-2 mt-4 text-sm text-white bg-red-500 rounded hover:bg-red-600"
+            className="mt-4 w-full rounded bg-red-500 px-4 py-2 text-sm text-white hover:bg-red-600"
           >
             Remover Filtros
           </button>

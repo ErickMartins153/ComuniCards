@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cartao } from "../util/Cartao";
+import { Cartao } from "../model/Cartao";
 import { getCartoes, deleteCartaoById } from "../util/requests";
 
 export default function useCartoes() {

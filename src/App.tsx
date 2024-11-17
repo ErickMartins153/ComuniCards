@@ -1,22 +1,17 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import CreateCartao from "./pages/CreateCard";
+import { BrowserRouter as Router } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
 import { AudioContextProvider } from "./context/AudioContext";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   return (
-    <AudioContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateCartao />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Router>
-    </AudioContextProvider>
+    <AuthContextProvider>
+      <AudioContextProvider>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </AudioContextProvider>
+    </AuthContextProvider>
   );
 }
 

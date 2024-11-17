@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createCartao } from "../util/requests";
 import { useNavigate } from "react-router-dom";
-import { Categoria, CategoriaLabel } from "../util/categorias";
-import { Cartao } from "../util/Cartao";
+import { Categoria, CategoriaLabel } from "../model/categorias";
+import { Cartao } from "../model/Cartao";
 import { NavBar } from "../components/NavBar";
 
 export default function CreateCartao() {

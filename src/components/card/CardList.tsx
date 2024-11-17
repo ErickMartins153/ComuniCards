@@ -1,7 +1,7 @@
 import useCartoes from "../../hooks/useCartoes";
 import { CardItem } from "./CardItem";
 import Loading from "../Loading";
-import { Categoria, CategoriaLabel } from "../../util/categorias";
+import { Categoria, CategoriaLabel } from "../../model/categorias";
 
 interface CardListProps {
   search: string;

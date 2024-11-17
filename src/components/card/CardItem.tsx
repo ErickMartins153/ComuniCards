@@ -2,7 +2,7 @@ import { useState } from "react";
 import perfilIcon from "../../assets/perfilIcon.svg";
 import favoriteIcon from "../../assets/favoriteIcon.svg";
 import favoriteIconYellow from "../../assets/favoriteIconYellow.svg";
-import { type Cartao } from "../../util/Cartao";
+import { type Cartao } from "../../model/Cartao";
 import { useAudio } from "../../hooks/useAudio";
 
 interface CardItemProps extends Cartao {
@@ -27,7 +27,7 @@ export function CardItem({
     <div className="relative w-[200px] rounded-md border-2 border-black bg-[#EEF8FF] text-center">
       {!base && (
         <button
-          className="absolute text-red-500 right-2 top-2"
+          className="absolute right-2 top-2 text-red-500"
           onClick={() => onDelete(id)}
         >
           <svg
@@ -36,7 +36,7 @@ export function CardItem({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-5 h-5"
+            className="h-5 w-5"
           >
             <path
               strokeLinecap="round"
@@ -46,7 +46,7 @@ export function CardItem({
           </svg>
         </button>
       )}
-      <button className="flex m-2" onClick={favorite}>
+      <button className="m-2 flex" onClick={favorite}>
         <img
           src={isFavorited ? favoriteIconYellow : favoriteIcon}
           alt="Favoritar"

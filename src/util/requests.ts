@@ -1,4 +1,4 @@
-import { Cartao } from "./Cartao";
+import { Cartao } from "../model/Cartao";
 
 const BASE_URL = "http://localhost:8081/api";
 
