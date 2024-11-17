@@ -58,7 +58,10 @@ export function NavBar() {
               </button>
             </li>
             <li>
-              <button onClick={toggleSidebar} className="text-lg">
+              <button
+                onClick={goTo.bind(null, "/favorites")}
+                className="text-lg"
+              >
                 Ver Favoritos
               </button>
             </li>

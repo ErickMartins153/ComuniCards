@@ -2,11 +2,14 @@ import { useState } from "react";
 import CardList from "../components/card/CardList";
 import { NavBar } from "../components/NavBar";
 import { SearchBar } from "../components/SearchBar";
-import FilterMenu from "../components/FilterMenu"; // Novo componente de filtro
+import FilterMenu from "../components/FilterMenu";
+import useCartoes from "../hooks/useCartoes";
+import Loading from "../components/Loading";
 
 export default function Home() {
+  const { cartoes, isLoading } = useCartoes("todos");
   const [search, setSearch] = useState("");
-  const [filtros, setFiltros] = useState<string[]>([]); // Filtros selecionados
+  const [filtros, setFiltros] = useState<string[]>([]);
 
   function filtrosHandler(novosFiltros: string[]) {
     setFiltros(novosFiltros);
@@ -23,7 +26,16 @@ export default function Home() {
           <SearchBar onSearch={setSearch} />
           <FilterMenu filtros={filtros} setFiltros={filtrosHandler} />
         </div>
-        <CardList search={search} filtros={filtros} />
+        {isLoading ? (
+          <Loading texto="Carregando" />
+        ) : (
+          <CardList
+            cartoes={cartoes}
+            search={search}
+            filtros={filtros}
+            tipo="todos"
+          />
+        )}
       </div>
     </div>
   );

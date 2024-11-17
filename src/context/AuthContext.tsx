@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import Usuario, { Credentials } from "../model/Usuario";
 import { handleLogin } from "../util/authService";
 
@@ -19,12 +19,20 @@ export const AuthContext = createContext<AuthContextType>(defaultValue);
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(null);
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem("usuario");
+    if (storedUser) {
+      setUsuario(JSON.parse(storedUser));
+    }
+  }, []);
+
   async function logar(credenciais: Credentials) {
     if (!credenciais.email || !credenciais.senha) return "";
 
     const result = await handleLogin(credenciais);
     if (typeof result === "object" && !!typeof result.email) {
       setUsuario(result);
+      localStorage.setItem("usuario", JSON.stringify(result));
     }
 
     return result;
@@ -32,6 +40,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
   async function deslogar() {
     setUsuario(null);
+    localStorage.removeItem("usuario");
   }
 
   const value: AuthContextType = {
