@@ -34,6 +34,7 @@ export default function Home() {
             search={search}
             filtros={filtros}
             tipo="todos"
+            onRefresh={() => {}}
           />
         )}
       </div>

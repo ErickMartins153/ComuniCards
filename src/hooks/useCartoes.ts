@@ -45,6 +45,7 @@ export default function useCartoes(
       setCartoes((prevCartoes) =>
         prevCartoes.filter((cartao) => cartao.id !== cartaoId),
       );
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao deletar cartão:", error);
     } finally {

@@ -1,31 +1,37 @@
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useAuth } from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import perfilIcon from "../../assets/perfilIcon.svg";
 
 export default function PerfilBox() {
-  const [fotoUrl, setFotoUrl] = useState("");
+  const [foto, setFoto] = useState("");
   const [showInput, setShowInput] = useState(false);
-  const [message, setMessage] = useState(""); 
-  const {usuario} = useAuth();
+  const [message, setMessage] = useState("");
+  const { usuario } = useAuth();
+  const navigate = useNavigate();
 
   const handleAlterarFoto = async () => {
-    if (!fotoUrl) {
+    if (!foto || !usuario) {
       setMessage("Por favor, insira a URL da foto.");
       return;
     }
 
     try {
-      const response = await fetch(`https://localhost:8081/api/usuarios/${usuario?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `http://localhost:8081/api/usuarios/${usuario?.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...usuario, foto }),
         },
-        body: JSON.stringify({ fotoUrl }),
-      });
+      );
 
       if (response.ok) {
         setMessage("Foto de perfil alterada com sucesso!");
+        usuario.foto = foto;
       } else {
         setMessage("Erro ao alterar foto.");
       }
@@ -37,37 +43,40 @@ export default function PerfilBox() {
 
   return (
     <div className="relative flex flex-col items-center">
-    <Link to="/home">
-      <button
-        className="absolute top-4 left-4 bg-[#29C5FD] text-white p-2 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        onClick={() => alert("Função de retornar ainda não implementada!")}>
-        <FaArrowLeft className="w-4 h-4" />
-      </button>
-    </Link>
+      <Link to="/home">
+        <button
+          className="absolute left-4 top-4 rounded-full bg-[#29C5FD] p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onClick={() => navigate("/")}
+        >
+          <FaArrowLeft className="w-4 h-4" />
+        </button>
+      </Link>
 
       <img
-        src={fotoUrl || "https://www.doglife.com.br/blog/assets/post/gato-filhote-tudo-que-voce-precisa-saber-para-cuidar-bem-61aa5b4f5448461cf9e0a54b/filhote-capa.jpg.jpg"}
-        className="w-32 h-32 rounded-full border-2 border-gray-300 shadow-lg mt-12"/>
+        src={usuario?.foto || perfilIcon}
+        className="w-32 h-32 mt-12 border-2 border-gray-300 rounded-full shadow-lg"
+      />
 
       {showInput ? (
         <div className="mt-4">
           <input
             type="text"
             placeholder="Insira a URL da nova foto"
-            value={fotoUrl}
-            onChange={(e) => setFotoUrl(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg"/>
+            value={foto}
+            onChange={(e) => setFoto(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg"
+          />
 
           <button
             onClick={handleAlterarFoto}
-            className="mt-2 px-4 py-2 bg-[#29C5FD] text-white text-sm rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            className="mt-2 rounded-lg bg-[#29C5FD] px-4 py-2 text-sm text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
             Ok
           </button>
         </div>
       ) : (
-
         <button
-          className="mt-4 px-4 py-2 bg-[#29C5FD] text-white text-sm rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="mt-4 rounded-lg bg-[#29C5FD] px-4 py-2 text-sm text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={() => setShowInput(true)}
         >
           Alterar Foto

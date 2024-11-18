@@ -9,6 +9,7 @@ interface CardListProps {
   search: string;
   filtros: string[];
   tipo: "todos" | "favoritos";
+  onRefresh: () => void;
 }
 
 export default function CardList({
@@ -16,6 +17,7 @@ export default function CardList({
   search,
   filtros,
   tipo,
+  onRefresh,
 }: CardListProps) {
   const { usuario } = useAuth();
   const { deleteCartao } = useCartoes(tipo);
@@ -59,6 +61,7 @@ export default function CardList({
                   {...cartao}
                   key={cartao.id}
                   onDelete={() => deleteCartao(cartao.id, usuario!.id)}
+                  onRefresh={onRefresh}
                 />
               ))}
             </div>

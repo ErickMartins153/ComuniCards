@@ -9,6 +9,7 @@ import useCartoes from "../../hooks/useCartoes";
 
 interface CardItemProps extends Cartao {
   onDelete: (id: string) => void;
+  onRefresh: () => void;
 }
 
 export function CardItem({
@@ -19,6 +20,7 @@ export function CardItem({
   onDelete,
   isFavorito: favorito,
   criadorId,
+  onRefresh,
 }: CardItemProps) {
   const { usuario } = useAuth();
 
@@ -26,12 +28,22 @@ export function CardItem({
 
   const { playAudio } = useAudio();
 
+  async function deleteHandler() {
+    await onDelete(id);
+    onRefresh();
+  }
+
+  async function favoritarHandler() {
+    await toggleFavorito(id, usuario!.id);
+    onRefresh();
+  }
+
   return (
     <div className="relative w-[200px] rounded-md border-2 border-black bg-[#EEF8FF] text-center">
       {!base && (
         <button
-          className="absolute right-2 top-2 text-red-500"
-          onClick={() => onDelete(id)}
+          className="absolute text-red-500 right-2 top-2"
+          onClick={deleteHandler}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +51,7 @@ export function CardItem({
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-5 w-5"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -49,10 +61,7 @@ export function CardItem({
           </svg>
         </button>
       )}
-      <button
-        className="m-2 flex"
-        onClick={() => toggleFavorito(id, usuario!.id)}
-      >
+      <button className="flex m-2" onClick={favoritarHandler}>
         <img
           src={
             isFavorito || criadorId === usuario!.id

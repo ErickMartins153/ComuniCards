@@ -5,7 +5,7 @@ import perfilIcon from "../assets/perfilIcon.svg";
 import { useAuth } from "../hooks/useAuth";
 
 export function NavBar() {
-  const { deslogar } = useAuth();
+  const { deslogar, usuario } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -19,17 +19,20 @@ export function NavBar() {
   return (
     <>
       <nav className="sticky top-0 z-20 flex items-center justify-between border-b-2 border-gray-300 bg-[#B1D8FF] px-10 pt-2 shadow-xl">
-        <div className="flex items-center gap-5">
+        <div className="flex items-center justify-center gap-5">
           <button onClick={toggleSidebar}>
             <img src={barraIcon} alt="Menu" className="w-8 h-8" />
           </button>
           <h1 className="text-4xl">ComuniCards</h1>
         </div>
-        <div>
-          <Link to={"/profile"}>
-           <img src={perfilIcon} alt="Perfil" className="w-8 h-8" />
-          </Link>
-        </div>
+
+        <Link to={"/profile"}>
+          <img
+            src={usuario?.foto || perfilIcon}
+            alt="Perfil"
+            className="items-center justify-center w-12 h-12 mt-12 border-2 border-gray-300 rounded-full shadow-lg"
+          />
+        </Link>
       </nav>
 
       {isSidebarOpen && (

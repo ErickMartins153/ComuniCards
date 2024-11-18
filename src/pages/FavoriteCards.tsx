@@ -13,6 +13,8 @@ export default function FavoriteCards() {
     return <p>Você precisa estar logado para ver seus favoritos.</p>;
   }
 
+  function refreshHandler() {}
+
   return (
     <>
       <NavBar />
@@ -26,6 +28,7 @@ export default function FavoriteCards() {
             search=""
             filtros={[]}
             tipo="favoritos"
+            onRefresh={refreshHandler}
           />
         )}
       </div>

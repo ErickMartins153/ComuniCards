@@ -22,6 +22,10 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const storedUser = localStorage.getItem("usuario");
     if (storedUser) {
+      const { email, senha }: Usuario = JSON.parse(storedUser);
+      logar({ email, senha })
+        .then(() => console.log("existente"))
+        .catch(() => deslogar());
       setUsuario(JSON.parse(storedUser));
     }
   }, []);
