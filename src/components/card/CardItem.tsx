@@ -34,6 +34,7 @@ export function CardItem({
   }
 
   async function favoritarHandler() {
+    if (criadorId === usuario!.id) return;
     await toggleFavorito(id, usuario!.id);
     onRefresh();
   }
